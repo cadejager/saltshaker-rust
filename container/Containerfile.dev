@@ -1,0 +1,19 @@
+FROM rust:latest
+ARG SSH_PUBKEY
+
+RUN <<EOF
+apt-get update
+apt-get install -y openssh-server
+
+echo "${SSH_PUBKEY}" > /root/.ssh/authorized_keys
+chmod 700 /root/.ssh
+chmod 600 /root/.ssh/authorized_keys
+
+echo 'export RUSTUP_HOME=/usr/local/rustup'     >>/etc/bash.bashrc
+echo 'export CARGO_HOME=/usr/local/cargo'       >>/etc/bash.bashrc
+echo 'export PATH=/usr/local/cargo/bin:$PATH'   >>/etc/bash.bashrc
+echo 'export RUST_VERSION=1.91.1'               >>/etc/bash.bashrc
+EOF
+
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]

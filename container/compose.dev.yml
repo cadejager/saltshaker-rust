@@ -1,0 +1,11 @@
+services:
+  rust-dev:
+    build:
+      dockerfile: Containerfile.dev
+      args:
+        SSH_PUBKEY: "${SSH_PUBKEY}"  # pass your public key from host env
+    container_name: rust-dev
+    ports:
+      - "${SSH_PORT}:22"
+    volumes:
+      - ..:/app          # mount root dir of project into container

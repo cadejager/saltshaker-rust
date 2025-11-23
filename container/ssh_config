@@ -1,0 +1,6 @@
+Host saltshaker-dev-container
+    Port 4358
+    HostName localhost
+    User root
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
